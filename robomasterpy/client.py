@@ -368,7 +368,7 @@ class Commander:
         cmd = ['chassis', 'push']
         if all_freq is not None:
             assert all_freq in valid_frequencies, f'all_freq {all_freq} is not valid'
-            cmd += ['afreq', all_freq]
+            cmd += ['freq', all_freq]
         else:
             if position_freq is not None:
                 assert position_freq in valid_frequencies, f'position_freq {position_freq} is not valid'

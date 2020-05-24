@@ -28,6 +28,8 @@ from .client import (
     ArmorHitEvent, SoundApplauseEvent,
 )
 from .client import (
+    VIDEO_PORT, AUDIO_PORT, CTRL_PORT, PUSH_PORT, EVENT_PORT, IP_PORT,
+    DEFAULT_BUF_SIZE,
     SWITCH_ON, SWITCH_OFF,
     MODE_CHASSIS_LEAD, MODE_GIMBAL_LEAD, MODE_FREE,
     ARMOR_HIT,
