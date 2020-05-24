@@ -13,16 +13,17 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../robomasterpy'))
+sys.path.insert(0, os.path.abspath('..'))
+import robomasterpy
 
 # -- Project information -----------------------------------------------------
 
-project = 'robomasterpy'
-copyright = '2020, LI Zhennan'
-author = 'LI Zhennan'
+project = robomasterpy.__title__
+copyright = robomasterpy.__copyright__
+author = robomasterpy.__author__
 
 # The full version, including alpha/beta/rc tags
-release = 'v0.1.0'
+release = robomasterpy.__version__
 
 # -- General configuration ---------------------------------------------------
 

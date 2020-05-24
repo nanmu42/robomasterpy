@@ -270,10 +270,7 @@ class Commander:
         """
         获取底盘速度信息
 
-        :return: x 轴向运动速度(m/s)，
-        y 轴向运动速度(m/s)，z 轴向旋转速度(°/s)，
-        w1 右前麦轮速度(rpm)，w2 左前麦轮速速(rpm)，
-        w3 右后麦轮速度(rpm)，w4 左后麦轮速度(rpm)
+        :return: x 轴向运动速度(m/s)，y 轴向运动速度(m/s)，z 轴向旋转速度(°/s)，w1 右前麦轮速度(rpm)，w2 左前麦轮速速(rpm)，w3 右后麦轮速度(rpm)，w4 左后麦轮速度(rpm)
         """
         resp = self.do('chassis', 'speed', '?')
         ans = resp.split(' ')
@@ -533,8 +530,7 @@ class Commander:
         """
         设置装甲板打击检测灵敏度
 
-        :param value: 装甲板灵敏度，数值越大，越容易检测到打击。
-        默认灵敏度值为 5.
+        :param value: 装甲板灵敏度，数值越大，越容易检测到打击。默认灵敏度值为 5.
         :return: ok，否则raise
         """
         assert 1 <= value <= 10, f'value {value} is out of range'

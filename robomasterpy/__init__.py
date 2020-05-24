@@ -9,7 +9,7 @@
 
 """
 RoboMasterPy: Python library and framework for RoboMaster EP
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
@@ -21,7 +21,7 @@ from . import framework
 from . import measure
 from .__version__ import (
     __title__, __description__, __url__, __version__,
-    __author__, __author_email__, __license__,
+    __author__, __author_email__, __license__, __copyright__,
 )
 from .client import CTX, LOG_LEVEL
 from .client import (
