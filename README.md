@@ -2,6 +2,7 @@
 
 **English** | [中文](https://github.com/nanmu42/robomasterpy/blob/master/README.Chinese.md)
 
+[![Documentation Status](https://readthedocs.org/projects/robomasterpy/badge/?version=latest)](https://robomasterpy.nanmu.me/en/latest/?badge=latest)
 [![](https://img.shields.io/pypi/l/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 [![](https://img.shields.io/pypi/wheel/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 [![](https://img.shields.io/pypi/pyversions/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
@@ -64,7 +65,9 @@ pip install dataclasses
 
 ## User Guide
 
-TODO
+https://robomasterpy.nanmu.me/
+
+Documentation is generously hosted by Read the Docs.
 
 ## Health and Safety Notice
 
