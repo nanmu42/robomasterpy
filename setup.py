@@ -34,7 +34,6 @@ VERSION = about['__version__']
 # What packages are required for this module to be executed?
 REQUIRED = [
     'opencv-contrib-python',
-
 ]
 
 # What packages are optional?

@@ -54,7 +54,7 @@ you can build your controlling logic basing on it, for example(TODO: add links):
 * Drive your robomaster using keyboard;
 * Make your robomaster a goalkeeper.
 
-The User Guide
+User Guide
 --------------
 
 .. toctree::
@@ -72,3 +72,20 @@ Health and Safety Notice
 * Start slowly, avoid using high speed for debugging;
 * Use cushion;
 * Stay safe and have fun!
+
+Paperwork
+------------------
+
+RoboMasterPy is a fan work, and it has no concern with DJI.
+
+DJI, RoboMaster are trademarks of SZ DJI Technology Co., Ltd.
+
+Acknowledgement
+-------------------------------
+
+RoboMasterPy was developed during a RoboMaster EP developing contest. The author would like to thank DJI for hardware and technical support.
+
+License
+--------------
+
+RoboMasterPy is released under MIT license.
