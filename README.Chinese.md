@@ -49,8 +49,8 @@ RoboMasterPy编程框架抽象了视频流、推送和事件的获取，模块�
 
 ![RoboMasterPy 守门员](https://user-images.githubusercontent.com/8143068/82755582-186d5700-9e07-11ea-9c08-1ff1d82e7a7e.jpg)
 
-* 使用键盘控制你的机甲大师EP；
-* 让你的机甲大师变身为守门员。
+* [使用键盘控制你的机甲大师EP](https://github.com/nanmu42/robo-playground/blob/master/README.Chinese.md#%E4%BD%BF%E7%94%A8%E9%94%AE%E7%9B%98%E6%8E%A7%E5%88%B6%E4%BD%A0%E7%9A%84%E6%9C%BA%E7%94%B2%E5%A4%A7%E5%B8%88ep)；
+* [让你的机甲大师变身为守门员](https://github.com/nanmu42/robo-playground/blob/master/README.Chinese.md#%E8%AE%A9%E4%BD%A0%E7%9A%84%E6%9C%BA%E7%94%B2%E5%A4%A7%E5%B8%88ep%E5%8F%98%E8%BA%AB%E4%B8%BA%E5%AE%88%E9%97%A8%E5%91%98)。
 
 ## 安装
 
@@ -90,7 +90,7 @@ RoboMasterPy 是一个爱好者作品，和DJI没有关系。
 
 RoboMasterPy是在机甲大师EP开发者比赛中孵化的，作者对DJI提供的硬件和技术支持表示感谢。
 
-## License
+## 许可
 
 RoboMasterPy 基于MIT许可发布，
 您只需要保留署名和版权信息（LICENSE）即可自由使用本软件。
