@@ -44,7 +44,10 @@ The library(client) is straightforward to use:
 ```
 
 The framework deals with video streaming, push and event,
-you can build your controlling logic basing on it, for example(TODO: add links):
+provides a high-level interface for controlling and communication.
+You can build your controlling logic basing on it, for example(TODO: add links):
+
+![RoboMasterPy Goalkeeper](https://user-images.githubusercontent.com/8143068/82755582-186d5700-9e07-11ea-9c08-1ff1d82e7a7e.jpg)
 
 * Drive your robomaster using keyboard;
 * Make your robomaster a goalkeeper.
