@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+
+
+# ██████╗  ██████╗ ██████╗  ██████╗ ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ ██████╗ ██╗   ██╗
+# ██╔══██╗██╔═══██╗██╔══██╗██╔═══██╗████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
+# ██████╔╝██║   ██║██████╔╝██║   ██║██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝██████╔╝ ╚████╔╝
+# ██╔══██╗██║   ██║██╔══██╗██║   ██║██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗██╔═══╝   ╚██╔╝
+# ██║  ██║╚██████╔╝██████╔╝╚██████╔╝██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║██║        ██║
+# ╚═╝  ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝        ╚═╝
+
+
 import math
 from typing import Tuple
 
@@ -41,7 +52,7 @@ def distance_decomposition(pixel_x: float, distance: float, horizontal_pixels: f
     :param distance: 距离，单位米。 Distance in meter.
     :param horizontal_pixels: 图像横向的像素数目，默认1280. The number of pixels in the horizontal direction of the image, the default is 1280.
     :param horizontal_degrees: 图像横向的视角大小，默认96. The horizontal viewing angle of the image, the default is 96.
-    :return: 前进分量和侧向分量，单位米；横向偏转角度，单位度。 forward vector and lateral vector in meters; horizontal angle in degrees.
+    :return: 前进分量和侧向分量，单位米；水平偏转角度，单位度。 forward vector and lateral vector in meters; horizontal angle in degrees.
     """
     horizontal_degree = HORIZONTAL_DEGREES * (pixel_x / horizontal_pixels - 0.5)
     rad = horizontal_degree / 180 * math.pi

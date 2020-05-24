@@ -24,12 +24,13 @@ VERSION = '0.1.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    # 'requests', 'maya', 'records',
+    'opencv-contrib-python',
+
 ]
 
 # What packages are optional?
 EXTRAS = {
-    # 'fancy feature': ['django'],
+    'python 3.6.x needs': ['dataclasses'],
 }
 
 # The rest you shouldn't have to touch too much :)
