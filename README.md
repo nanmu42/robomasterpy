@@ -7,9 +7,9 @@
 [![](https://img.shields.io/pypi/wheel/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 [![](https://img.shields.io/pypi/pyversions/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 
-**RoboMasterPy** is a Python library and framework for RoboMaster EP.
+**RoboMasterPy** is a Python SDK and framework for RoboMaster EP.
 
-The library(client) is straightforward to use:
+The SDK(client) is straightforward to use:
 
 ```python
 >>> import robomasterpy as rm
@@ -47,7 +47,9 @@ The library(client) is straightforward to use:
 
 The framework deals with video streaming, push and event,
 provides a high-level interface for controlling and communication.
-You can build your controlling logic basing on it, for example:
+You can build your controlling logic basing on it.
+
+## Fun Examples
 
 * [Drive your robomaster using keyboard](https://github.com/nanmu42/robo-playground#drive-your-robomaster-using-keyboard);
 * [Make your robomaster a goalkeeper](https://github.com/nanmu42/robo-playground#make-your-robomaster-a-goalkeeper);

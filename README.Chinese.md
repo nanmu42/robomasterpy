@@ -6,9 +6,9 @@
 [![](https://img.shields.io/pypi/wheel/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 [![](https://img.shields.io/pypi/pyversions/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 
-**RoboMasterPy** 是一个适用于机甲大师EP的Python库和编程框架。
+**RoboMasterPy** 是一个适用于机甲大师EP的SDK和编程框架。
 
-下面是运用RoboMasterPy Python库的一个简单示例：
+下面是运用RoboMasterPy SDK的一个简单示例：
 
 ```python
 >>> import robomasterpy as rm
@@ -47,7 +47,7 @@
 RoboMasterPy编程框架抽象了视频流、推送和事件的获取，模块之间的信息通讯，
 提供了一个高层的逻辑组织方式，期望降低开发者的心智负担，提升开发效率。
 
-一些例子：
+## 应用案例
 
 * [使用键盘控制你的机甲大师EP](https://github.com/nanmu42/robo-playground/blob/master/README.Chinese.md#%E4%BD%BF%E7%94%A8%E9%94%AE%E7%9B%98%E6%8E%A7%E5%88%B6%E4%BD%A0%E7%9A%84%E6%9C%BA%E7%94%B2%E5%A4%A7%E5%B8%88ep)；
 * [让你的机甲大师变身为守门员](https://github.com/nanmu42/robo-playground/blob/master/README.Chinese.md#%E8%AE%A9%E4%BD%A0%E7%9A%84%E6%9C%BA%E7%94%B2%E5%A4%A7%E5%B8%88ep%E5%8F%98%E8%BA%AB%E4%B8%BA%E5%AE%88%E9%97%A8%E5%91%98)。
