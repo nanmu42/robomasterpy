@@ -57,17 +57,33 @@ RoboMasterPy编程框架抽象了视频流、推送和事件的获取，模块�
 
 RoboMasterPy 需要Python 3.6或更高版本。
 
-```bash
-pip install robomasterpy
-```
+### 安装依赖
 
-如果你正使用Python 3.6.x，你需要额外安装`dataclasses`：
+如果你正使用Python 3.6.x，你需要额外安装`dataclasses`（已预置在Python 3.7及以上版本）：
 
 ```bash
 pip install dataclasses
 ```
 
+安装你熟悉的OpenCV发行版，推荐：
+
+```bash
+# 如果你偏爱conda环境
+conda install -c conda-forge opencv
+
+# 如果你只使用pip
+pip install opencv-contrib-python
+```
+
+### 安装RoboMasterPy
+
+```bash
+pip install robomasterpy
+```
+
 ## 用户指南
+
+文档提供中英双语。
 
 https://robomasterpy.nanmu.me/
 
