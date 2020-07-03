@@ -10,9 +10,8 @@
 import logging
 import multiprocessing as mp
 import socket
-from typing import Optional
-
 from dataclasses import dataclass
+from typing import Optional
 
 CTX = mp.get_context('spawn')
 LOG_LEVEL = logging.DEBUG
@@ -141,8 +140,10 @@ def get_broadcast_ip(timeout: float = None) -> str:
     """
     接收广播以获取机甲IP
 
-    :param timeout: 等待超时（秒）
-    :return: 机甲IP地址
+    Receive broadcasting IP of Robomaster.
+
+    :param timeout: 等待超时（秒）。 timeout in second
+    :return: 机甲IP地址。IP of Robomaster.
     """
     BROADCAST_INITIAL: str = 'robot ip '
 
@@ -163,6 +164,15 @@ def get_broadcast_ip(timeout: float = None) -> str:
 
 class Commander:
     def __init__(self, ip: str = '', timeout: float = 30):
+        """
+        创建SDK实例并连接机甲，实例在创建后立即可用。
+
+        Create a new SDK instance and connect it to Robomaster.
+        Instance is available immediately after creation.
+
+        :param ip: 可选，机甲IP，可在路由器模式下自动获取。 (Optional) IP of Robomaster, which can be detected automatically under router mode.
+        :param timeout: 可选，TCP通讯超时（秒）。 (Optional) TCP timeout in second.
+        """
         self._mu: mp.Lock = CTX.Lock()
         with self._mu:
             if ip == '':
@@ -177,6 +187,13 @@ class Commander:
             assert self._is_ok(resp) or resp == 'Already in SDK mode', f'entering SDK mode: {resp}'
 
     def close(self):
+        """
+        关闭实例，回收socket资源。注意这个命令并不会发送quit到机甲，避免打扰其他在线的Commander.
+
+        Close instance, deallocate system socket resource.
+        Note this method will NOT send quit command to Robomaster,
+        because there may be other Commander still active.
+        """
         with self._mu:
             self._conn.close()
             self._closed = True
@@ -203,37 +220,45 @@ class Commander:
 
     def get_ip(self) -> str:
         """
-        返回机甲IP
+        返回机甲IP。
 
-        :return: 机甲IP
+        get IP that the commander currently connects to.
+
+        :return: 机甲IP。 IP that the commander currently connects to
         """
         assert not self._closed, 'connection is already closed'
         return self._ip
 
     def do(self, *args) -> str:
         """
-        执行任意命令
+        执行任意命令。
 
-        :param args: 命令内容，list
-        :return: 命令返回
+        Execute any command.
+
+        :param args: 命令内容。 command content.
+        :return: 命令返回。 the response of the command.
         """
         with self._mu:
             return self._do(*args)
 
     def version(self) -> str:
         """
+        查询当前机甲的SDK版本。
+
         query robomaster SDK version
 
-        :return: version string
+        :return: SDK版本号。 SDK version string.
         """
         return self.do('version')
 
     def robot_mode(self, mode: str) -> str:
         """
-        机器人运动模式控制
+        更改机甲的运动模式。
 
-        :param mode: 三种模式之一，见enum MODE_*
-        :return: ok，否则raise
+        Update Robomaster's movement mode.
+
+        :param mode: 三种模式之一，见enum MODE_*。 Movement mode, refer to enum MODE_*
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         assert mode in MODE_ENUMS, f'unknown mode {mode}'
         resp = self.do('robot', 'mode', mode)
@@ -242,9 +267,11 @@ class Commander:
 
     def get_robot_mode(self) -> str:
         """
-        查询当前机器人运动模式
+        查询当前机甲的运动模式。
 
-        :return: 三种模式之一，见enum MODE_*
+        Query for Robomaster's current movement mode.
+
+        :return: 三种模式之一，见enum MODE_*。 Movement mode, refer to enum MODE_*
         """
         resp = self.do('robot', 'mode', '?')
         assert resp in MODE_ENUMS, f'unexpected robot mode result: {resp}'
@@ -252,12 +279,14 @@ class Commander:
 
     def chassis_speed(self, x: float = 0, y: float = 0, z: float = 0) -> str:
         """
-        控制底盘运动速度
+        更改底盘运动速度。
 
-        :param x: x 轴向运动速度，单位 m/s
-        :param y: y 轴向运动速度，单位 m/s
-        :param z: z 轴向旋转速度，单位 °/s
-        :return: ok，否则raise
+        Update chassis speed.
+
+        :param x: x 轴向运动速度，单位 m/s   speed in x axis, in m/s
+        :param y: y 轴向运动速度，单位 m/s   speed in y axis, in m/s
+        :param z: z 轴向旋转速度，单位 °/s   rotation speed in z axis, in °/s
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         assert -3.5 <= x <= 3.5, f'x {x} is out of range'
         assert -3.5 <= y <= 3.5, f'y {y} is out of range'
@@ -268,9 +297,12 @@ class Commander:
 
     def get_chassis_speed(self) -> ChassisSpeed:
         """
-        获取底盘速度信息
+        获取底盘速度。
 
-        :return: x 轴向运动速度(m/s)，y 轴向运动速度(m/s)，z 轴向旋转速度(°/s)，w1 右前麦轮速度(rpm)，w2 左前麦轮速速(rpm)，w3 右后麦轮速度(rpm)，w4 左后麦轮速度(rpm)
+        Query for chassis speed.
+
+        :return: x 轴向运动速度(m/s)，y 轴向运动速度(m/s)，z 轴向旋转速度(°/s)，w1 右前麦轮速度(rpm)，w2 左前麦轮速速(rpm)，w3 右后麦轮速度(rpm)，w4 左后麦轮速度(rpm)。
+            speed in x axis(m/s), speed in y axis(m/s), rotation speed in z axis(°/s), w1(right front) wheel speed(rpm), w2(left front) wheel speed(rpm), w3(right back) wheel speed(rpm), w4(left back) wheel speed(rpm)
         """
         resp = self.do('chassis', 'speed', '?')
         ans = resp.split(' ')
@@ -279,13 +311,15 @@ class Commander:
 
     def chassis_wheel(self, w1: int = 0, w2: int = 0, w3: int = 0, w4: int = 0) -> str:
         """
-        底盘轮子速度控制
+        更改底盘轮子速度。
 
-        :param w1: 右前麦轮速度，单位 rpm
-        :param w2: 左前麦轮速度，单位 rpm
-        :param w3: 右后麦轮速度，单位 rpm
-        :param w4: 左后麦轮速度，单位 rpm
-        :return ok: ok，否则raise
+        Update chassis wheel rotation speed.
+
+        :param w1: 右前麦轮速度，单位 rpm   w1(right front) wheel speed(rpm)
+        :param w2: 左前麦轮速度，单位 rpm   w2(left front) wheel speed(rpm)
+        :param w3: 右后麦轮速度，单位 rpm   w3(right back) wheel speed(rpm)
+        :param w4: 左后麦轮速度，单位 rpm   w4(left back) wheel speed(rpm)
+        :return ok: ok，否则raise。 ok, or raise certain exception.
         """
         for i, v in enumerate((w1, w2, w3, w4)):
             assert -1000 <= v <= 1000, f'w{i + 1} {v} is out of range'
@@ -295,14 +329,16 @@ class Commander:
 
     def chassis_move(self, x: float = 0, y: float = 0, z: float = 0, speed_xy: float = None, speed_z: float = None) -> str:
         """
-        控制底盘运动当指定位置，坐标轴原点为当前位置
+        控制底盘运动当指定位置，坐标轴原点为当前位置。
 
-        :param x: x 轴向运动距离，单位 m
-        :param y: y 轴向运动距离，单位 m
-        :param z: z 轴向旋转角度，单位 °
-        :param speed_xy: xy 轴向运动速度，单位 m/s
-        :param speed_z: z 轴向旋转速度， 单位 °/s
-        :return ok: ok，否则raise
+        Make chassis move to specified location. The origin is current location.
+
+        :param x: x 轴向运动距离，单位 m   movement in x axis, in meter
+        :param y: y 轴向运动距离，单位 m   movement in y axis, in meter
+        :param z: z 轴向旋转角度，单位 °   movement in z axis, in degree
+        :param speed_xy: xy 轴向运动速度，单位 m/s   speed in both x and y axis, in meter/second
+        :param speed_z: z 轴向旋转速度， 单位 °/s   speed in z axis, in degree/second
+        :return ok: ok，否则raise。 ok, or raise certain exception.
         """
         assert -5 <= x <= 5, f'x {x} is out of range'
         assert -5 <= y <= 5, f'y {y} is out of range'
@@ -320,9 +356,11 @@ class Commander:
 
     def get_chassis_position(self) -> ChassisPosition:
         """
-        获取底盘当前的位置(以上电时刻位置为原点)
+        获取底盘当前的位置（以上电时刻位置为原点）。
 
-        :return: x 轴位置(m)，y 轴位置(m)，偏航角度(°)
+        Query for chassis location. The origin is where Robomaster powers on.
+
+        :return: x 轴位置(m)，y 轴位置(m)，偏航角度(°)。 location consisting of x, y, z, in meter, meter, degree.
         """
         resp = self.do('chassis', 'position', '?')
         ans = resp.split(' ')
@@ -331,9 +369,11 @@ class Commander:
 
     def get_chassis_attitude(self) -> ChassisAttitude:
         """
-        获取底盘姿态信息
+        获取底盘姿态信息。
 
-        :return: pitch 轴角度(°)，roll 轴角度(°)，yaw 轴角度(°)
+        Query for chassis attitude.
+
+        :return: pitch 轴角度(°)，roll 轴角度(°)，yaw 轴角度(°)。   pitch, roll, yaw in degree.
         """
         resp = self.do('chassis', 'attitude', '?')
         ans = resp.split(' ')
@@ -342,9 +382,11 @@ class Commander:
 
     def get_chassis_status(self) -> ChassisStatus:
         """
-        获取底盘状态信息
+        获取底盘状态信息。
 
-        :return: 底盘状态，详见 ChassisStatus
+        Query for chassis status.
+
+        :return: 底盘状态，详见 ChassisStatus   chassis status, see class ChassisStatus.
         """
         resp = self.do('chassis', 'status', '?')
         ans = resp.split(' ')
@@ -353,13 +395,15 @@ class Commander:
 
     def chassis_push_on(self, position_freq: int = None, attitude_freq: int = None, status_freq: int = None, all_freq: int = None) -> str:
         """
-        打开底盘中相应属性的信息推送，支持的频率 1, 5, 10, 20, 30, 50
+        打开底盘中相应属性的信息推送，支持的频率 1, 5, 10, 20, 30, 50.
 
-        :param position_freq: 位置推送频率，不开启则设为None
-        :param attitude_freq: 姿态推送频率，不开启则设为None
-        :param status_freq: 状态推送频率，不开启则设为None
-        :param all_freq: 统一设置所有推送频率，设置则开启所有推送
-        :return: ok，否则raise
+        Enable chassis push of specified attribution. Supported frequencies are 1, 5, 10, 20, 30, 50.
+
+        :param position_freq: 位置推送频率，不设定则设为None.   position push frequency, None for no-op.
+        :param attitude_freq: 姿态推送频率，不设定则设为None.   attitude push frequency, None for no-op.
+        :param status_freq: 状态推送频率，不设定则设为None.   status push frequency, None for no-op.
+        :param all_freq: 统一设置所有推送频率，设置则开启所有推送。   update all push frequency, this affects all attribution.
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         valid_frequencies = (1, 5, 10, 20, 30, 50)
         cmd = ['chassis', 'push']
@@ -385,11 +429,13 @@ class Commander:
         """
         关闭底盘中相应属性的信息推送。
 
-        :param position: 是否关闭位置推送
-        :param attitude: 是否关闭姿态推送
-        :param status: 是否关闭状态推送
-        :param all: 关闭所有推送
-        :return: ok，否则raise
+        Disable chassis push of specified attribution.
+
+        :param position: 是否关闭位置推送。   whether disable position push.
+        :param attitude: 是否关闭姿态推送。   whether disable attitude push.
+        :param status: 是否关闭状态推送。   whether disable status push.
+        :param all: 关闭所有推送。   whether disable all pushes.
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         cmd = ['chassis', 'push']
         if all or position:
@@ -406,11 +452,13 @@ class Commander:
 
     def gimbal_speed(self, pitch: float, yaw: float) -> str:
         """
-        控制云台运动速度
+        控制云台运动速度。
 
-        :param pitch: pitch 轴速度，单位 °/s
-        :param yaw: yaw 轴速度，单位 °/s
-        :return: ok，否则raise
+        Update gimbal speed.
+
+        :param pitch: pitch 轴速度，单位 °/s   Pitch speed in  °/s
+        :param yaw: yaw 轴速度，单位 °/s   yaw speed in °/s
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         assert -450 <= pitch <= 450, f'pitch {pitch} is out of range'
         assert -450 <= yaw <= 450, f'yaw {yaw} is out of range'
@@ -420,13 +468,15 @@ class Commander:
 
     def gimbal_move(self, pitch: float = 0, yaw: float = 0, pitch_speed: float = None, yaw_speed: float = None) -> str:
         """
-        控制云台运动到指定位置，坐标轴原点为当前位置
+        控制云台运动到指定位置，坐标轴原点为当前位置。
 
-        :param pitch: pitch 轴角度， 单位 °
-        :param yaw: yaw 轴角度， 单位 °
-        :param pitch_speed: pitch 轴运动速速，单位 °/s
-        :param yaw_speed: yaw 轴运动速速，单位 °/s
-        :return: ok，否则raise
+        Make gimbal move to specified location. The origin is current location.
+
+        :param pitch: pitch 轴角度， 单位 °   pitch delta in degree
+        :param yaw: yaw 轴角度， 单位 °   yaw delta in degree
+        :param pitch_speed: pitch 轴运动速速，单位 °/s   pitch speed in °/s
+        :param yaw_speed: yaw 轴运动速速，单位 °/s   yaw speed in °/s
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         assert -55 <= pitch <= 55, f'pitch {pitch} is out of range'
         assert -55 <= yaw <= 55, f'yaw {yaw} is out of range'
@@ -443,13 +493,15 @@ class Commander:
 
     def gimbal_moveto(self, pitch: float = 0, yaw: float = 0, pitch_speed: float = None, yaw_speed: float = None) -> str:
         """
-        控制云台运动到指定位置，坐标轴原点为上电位置
+        控制云台运动到指定位置，坐标轴原点为上电位置。
 
-        :param pitch: pitch 轴角度， 单位 °
-        :param yaw: yaw 轴角度， 单位 °
-        :param pitch_speed: pitch 轴运动速速，单位 °/s
-        :param yaw_speed: yaw 轴运动速速，单位 °/s
-        :return: ok，否则raise
+        Make gimbal move to specified location. The origin is gimbal center.
+
+        :param pitch: pitch 轴角度， 单位 °   pitch delta in degree
+        :param yaw: yaw 轴角度， 单位 °   yaw delta in degree
+        :param pitch_speed: pitch 轴运动速速，单位 °/s   pitch speed in °/s
+        :param yaw_speed: yaw 轴运动速速，单位 °/s   yaw speed in °/s
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         assert -25 <= pitch <= 30, f'pitch {pitch} is out of range'
         assert -250 <= yaw <= 250, f'yaw {yaw} is out of range'
@@ -466,8 +518,11 @@ class Commander:
 
     def gimbal_suspend(self):
         """
-        使云台进入休眠状态
-        :return: ok，否则raise
+        使云台进入休眠状态。
+
+        Suspend(sleep) the gimbal.
+
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         resp = self.do('gimbal', 'suspend')
         assert self._is_ok(resp), f'gimbal_suspend: {resp}'
@@ -476,7 +531,10 @@ class Commander:
     def gimbal_resume(self):
         """
         控制云台从休眠状态中恢复
-        :return: ok，否则raise
+
+        awake the gimbal if it is suspended(sleeping).
+
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         resp = self.do('gimbal', 'resume')
         assert self._is_ok(resp), f'gimbal_resume: {resp}'
@@ -484,8 +542,11 @@ class Commander:
 
     def gimbal_recenter(self):
         """
-        控制云台回中
-        :return: ok，否则raise
+        控制云台回中。
+
+        Recenter the gimbal.
+
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         resp = self.do('gimbal', 'recenter')
         assert self._is_ok(resp), f'gimbal_recenter: {resp}'
@@ -493,8 +554,11 @@ class Commander:
 
     def get_gimbal_attitude(self) -> GimbalAttitude:
         """
-        获取云台姿态信息
-        :return: pitch 轴角度(°)，yaw 轴角度(°)
+        获取云台姿态信息。
+
+        Query for gimbal attitude.
+
+        :return: pitch 轴角度(°)，yaw 轴角度(°)   pitch, yaw in degree
         """
         resp = self.do('gimbal', 'attitude', '?')
         ans = resp.split(' ')
@@ -503,10 +567,12 @@ class Commander:
 
     def gimbal_push_on(self, attitude_freq: int = 5) -> str:
         """
-        打开云台中相应属性的信息推送，支持的频率 1, 5, 10, 20, 30, 50
+        打开云台中相应属性的信息推送，支持的频率 1, 5, 10, 20, 30, 50.
 
-        :param attitude_freq: 姿态推送频率
-        :return: ok，否则raise
+        Enable gimbal attribution push. Supported frequencies are 1, 5, 10, 20, 30, 50.
+
+        :param attitude_freq: 姿态推送频率.  attitude push frequency.
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         valid_frequencies = (1, 5, 10, 20, 30, 50)
         assert attitude_freq in valid_frequencies, f'invalid attitude_freq {attitude_freq}'
@@ -516,10 +582,12 @@ class Commander:
 
     def gimbal_push_off(self, attitude: bool = True) -> str:
         """
-        关闭云台中相应属性的信息推送
+        关闭云台中相应属性的信息推送。
 
-        :param attitude: 关闭姿态推送
-        :return: ok，否则raise
+        Disable gimbal push of specified attribution.
+
+        :param attitude: 关闭姿态推送。   whether disable attitude push.
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         assert attitude, 'at least one augment should be True'
         resp = self.do('gimbal', 'push', 'attitude', SWITCH_OFF)
@@ -528,10 +596,13 @@ class Commander:
 
     def armor_sensitivity(self, value: int) -> str:
         """
-        设置装甲板打击检测灵敏度
+        设置装甲板打击检测灵敏度。
+
+        Update armor sensitivity.
 
         :param value: 装甲板灵敏度，数值越大，越容易检测到打击。默认灵敏度值为 5.
-        :return: ok，否则raise
+            armor sensitivity, the bigger, the more sensitive. Default to 5.
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         assert 1 <= value <= 10, f'value {value} is out of range'
         resp = self.do('armor', 'sensitivity', value)
@@ -540,19 +611,24 @@ class Commander:
 
     def get_armor_sensitivity(self) -> int:
         """
-        获取装甲板打击检测灵敏度
-        :return: 装甲板灵敏度
+        获取装甲板打击检测灵敏度。
+
+        Query for armor sensitivity.
+
+        :return: 装甲板灵敏度   armor sensitivity.
         """
         resp = self.do('armor', 'sensitivity', '?')
         return int(resp)
 
     def armor_event(self, attr: str, switch: bool) -> str:
         """
-        控制装甲板检测事件上报
+        控制装甲板检测事件上报。
 
-        :param attr: 事件属性名称，范围见 ARMOR_ENUMS
-        :param switch: 是否开启上报
-        :return: ok，否则raise
+        Enable or disable specified armor event.
+
+        :param attr: 事件属性名称，范围见 ARMOR_ENUMS.   armor event name, see ARMOR_ENUMS.
+        :param switch: 是否开启上报   on/off
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         assert attr in ARMOR_ENUMS, f'unexpected armor event attr {attr}'
         resp = self.do('armor', 'event', attr, SWITCH_ON if switch else SWITCH_OFF)
@@ -561,11 +637,13 @@ class Commander:
 
     def sound_event(self, attr: str, switch: bool) -> str:
         """
-        声音识别事件上报控制
+        控制声音识别事件上报。
 
-        :param attr: 事件属性名称，范围见 SOUND_ENUMS
-        :param switch: 是否开启上报
-        :return: ok，否则raise
+        Enable or disable specified sound event.
+
+        :param attr: 事件属性名称，范围见 SOUND_ENUMS.   sound event name, see ARMOR_ENUMS.
+        :param switch: 是否开启上报   on/off
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         assert attr in SOUND_ENUMS, f'unexpected armor event attr {attr}'
         resp = self.do('sound', 'event', attr, SWITCH_ON if switch else SWITCH_OFF)
@@ -576,12 +654,14 @@ class Commander:
         """
         控制 LED 灯效。跑马灯效果仅可作用于云台两侧 LED。
 
-        :param comp: LED 编号，见 LED_ENUMS
-        :param effect: 灯效类型，见 LED_EFFECT_ENUMS
-        :param r: RGB 红色分量值
-        :param g: RGB 绿色分量值
-        :param b: RGB 蓝色分量值
-        :return: ok，否则raise
+        Update LED effects. Note scrolling effect works only on gimbal LEDs.
+
+        :param comp: LED 编号，见 LED_ENUMS   LED composition, see LED_ENUMS
+        :param effect: 灯效类型，见 LED_EFFECT_ENUMS   effect type, see LED_EFFECT_ENUMS
+        :param r: RGB 红色分量值   RGB red value
+        :param g: RGB 绿色分量值   RGB green value
+        :param b: RGB 蓝色分量值   RGB blue value
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         assert comp in LED_ENUMS, f'unknown comp {comp}'
         assert effect in LED_EFFECT_ENUMS, f'unknown effect {effect}'
@@ -596,10 +676,12 @@ class Commander:
 
     def ir_sensor_measure(self, switch: bool = True):
         """
-        打开/关闭所有红外传感器开关
+        打开/关闭所有红外传感器开关。
 
-        :param switch: 打开/关闭
-        :return: ok，否则raise
+        Enable or disable all IR sensor.
+
+        :param switch: 打开/关闭   on/off
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         resp = self.do('ir_distance_sensor', 'measure', SWITCH_ON if switch else SWITCH_OFF)
         assert self._is_ok(resp), f'ir_sensor_measure: {resp}'
@@ -607,10 +689,12 @@ class Commander:
 
     def get_ir_sensor_distance(self, id: int) -> int:
         """
-        获取指定 ID 的红外深度传感器距离
+        获取指定 ID 的红外深度传感器距离。
 
-        :param id: 红外传感器的 ID
-        :return: 指定 ID 的红外传感器测得的距离值，单位 mm
+        Query for distance reported by specified IR sensor.
+
+        :param id: 红外传感器的 ID   ID of IR sensor
+        :return: 指定 ID 的红外传感器测得的距离值，单位 mm   distance in mm
         """
         assert 1 <= id <= 4, f'invalid IR sensor id {id}'
         resp = self.do('ir_distance_sensor', 'distance', id, '?')
@@ -618,10 +702,12 @@ class Commander:
 
     def stream(self, switch: bool) -> str:
         """
-        视频流开关控制
+        视频流开关控制。
 
-        :param switch: 打开/关闭
-        :return: ok，否则raise
+        Enable or disable video stream.
+
+        :param switch: 打开/关闭   on/off
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         resp = self.do('stream', SWITCH_ON if switch else SWITCH_OFF)
         assert self._is_ok(resp), f'stream: {resp}'
@@ -629,10 +715,12 @@ class Commander:
 
     def audio(self, switch: bool) -> str:
         """
-        音频流开关控制
+        音频流开关控制。
 
-        :param switch: 打开/关闭
-        :return: ok，否则raise
+        Enable or disable audio stream.
+
+        :param switch: 打开/关闭   on/off
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         resp = self.do('audio', SWITCH_ON if switch else SWITCH_OFF)
         assert self._is_ok(resp), f'audio: {resp}'
@@ -640,9 +728,11 @@ class Commander:
 
     def blaster_fire(self) -> str:
         """
-        控制水弹枪发射一次
+        控制水弹枪发射一次。
 
-        :return: ok，否则raise
+        Fire once.
+
+        :return: ok，否则raise。 ok, or raise certain exception.
         """
         resp = self.do('blaster', 'fire')
         assert self._is_ok(resp), f'blaster_fire: {resp}'
