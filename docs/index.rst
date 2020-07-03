@@ -1,5 +1,5 @@
 RoboMasterPy: Python library and framework for RoboMaster EP
-========================================
+=====================================================================
 
 Release v\ |release|. (:ref:`Installation <install>`)
 
@@ -12,7 +12,7 @@ Release v\ |release|. (:ref:`Installation <install>`)
 .. image:: https://img.shields.io/pypi/pyversions/robomasterpy.svg
     :target: https://pypi.org/project/robomasterpy/
 
-**RoboMasterPy** is a Python library and framework for RoboMaster EP.
+**RoboMasterPy** is a Python SDK and framework for RoboMaster.
 
 -------------------
 
@@ -60,17 +60,17 @@ You can build your controlling logic basing on it, for example:
    :alt: RoboMasterPy Goalkeeper
 
 User Guide
---------------
+--------------------------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
 
    install
    quickstart
    api
 
 Health and Safety Notice
---------------
+--------------------------------------------------------------
 
 * Your Robomaster may hurt people or pet, break stuffs or itself;
 * Make sure your RoboMaster has enough room to move; make sure the ground is clear;

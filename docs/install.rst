@@ -1,6 +1,6 @@
 .. _install:
 
-Installation of RoboMasterPy
+Installation
 ====================================
 
 RoboMasterPy requires Python 3.6 and above.
