@@ -52,11 +52,12 @@ The framework deals with video streaming, push and event,
 provides a high-level interface for controlling and communication.
 You can build your controlling logic basing on it, for example:
 
+* `Drive your robomaster using keyboard <https://github.com/nanmu42/robo-playground#drive-your-robomaster-using-keyboard>`_;
+* `Make your robomaster a goalkeeper <https://github.com/nanmu42/robo-playground#make-your-robomaster-a-goalkeeper>`_;
+* `More examples <https://github.com/nanmu42/robo-playground>`_.
+
 .. image:: https://user-images.githubusercontent.com/8143068/82755582-186d5700-9e07-11ea-9c08-1ff1d82e7a7e.jpg
    :alt: RoboMasterPy Goalkeeper
-
-* `Drive your robomaster using keyboard <https://github.com/nanmu42/robo-playground#drive-your-robomaster-using-keyboard>`_;
-* `Make your robomaster a goalkeeper <https://github.com/nanmu42/robo-playground#make-your-robomaster-a-goalkeeper>`_.
 
 User Guide
 --------------

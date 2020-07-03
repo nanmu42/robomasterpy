@@ -13,7 +13,7 @@ Robomaster broadcast its IP address under router mode.
 Commander
 ------------------
 
-Commander is a client for Robomaster TCP API.
+Commander is a SDK(client) for Robomaster TCP API.
 
 .. autoclass:: robomasterpy.Commander
    :members:
@@ -24,10 +24,10 @@ Framework
 --------------------
 
 The framework deals with video streaming, push and event,
-you can build your controlling logic basing on it, for example(TODO: add links):
+you can build your controlling logic basing on it, for example:
 
-* Drive your robomaster using keyboard;
-* Make your robomaster a goalkeeper.
+* `Drive your robomaster using keyboard <https://github.com/nanmu42/robo-playground#drive-your-robomaster-using-keyboard>`_;
+* `Make your robomaster a goalkeeper <https://github.com/nanmu42/robo-playground#make-your-robomaster-a-goalkeeper>`_.
 
 .. autoclass:: robomasterpy.framework.Hub
    :members:
@@ -62,7 +62,7 @@ you can build your controlling logic basing on it, for example(TODO: add links):
 Helpers for Measure
 -----------------------------
 
-Some helpers for measure and analyze distance from video stream.
+Some helpers for distance measure and analysis on video stream.
 
 .. autofunction:: robomasterpy.measure.pinhole_distance
 .. autofunction:: robomasterpy.measure.distance_decomposition
