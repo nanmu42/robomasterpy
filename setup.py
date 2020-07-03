@@ -32,13 +32,12 @@ REQUIRES_PYTHON = '>=3.6.0'
 VERSION = about['__version__']
 
 # What packages are required for this module to be executed?
-REQUIRED = [
-    'opencv-contrib-python',
-]
+REQUIRED = []
 
 # What packages are optional?
 EXTRAS = {
     'python 3.6.x needs': ['dataclasses'],
+    'suggested flavor of OpenCV if you are not using conda': ['opencv-contrib-python'],
 }
 
 # The rest you shouldn't have to touch too much :)
@@ -115,12 +114,16 @@ setup(
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
+        'Framework :: Robot Framework',
+        'Framework :: Robot Framework :: Library',
+        'Framework :: Robot Framework :: Tool',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy'
+        'Programming Language :: Python :: Implementation :: PyPy',
     ],
     # $ setup.py publish support.
     cmdclass={
