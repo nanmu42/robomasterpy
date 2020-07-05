@@ -198,7 +198,9 @@ class Hub:
         self.close()
         for worker in self._workers:
             try:
-                worker.close()
+                # close method does not exist until Python 3.7 and better
+                if getattr(worker, 'close', False):
+                    worker.close()
             except Exception as e:
                 logging.error('[resource leak warning] failed to close process "%s": %s', worker._name, e)
 
