@@ -10,8 +10,9 @@
 import logging
 import multiprocessing as mp
 import socket
-from dataclasses import dataclass
 from typing import Optional
+
+from dataclasses import dataclass
 
 CTX = mp.get_context('spawn')
 LOG_LEVEL = logging.DEBUG
@@ -687,7 +688,7 @@ class Commander:
         assert self._is_ok(resp), f'ir_sensor_measure: {resp}'
         return resp
 
-    def get_ir_sensor_distance(self, id: int) -> int:
+    def get_ir_sensor_distance(self, id: int) -> float:
         """
         获取指定 ID 的红外深度传感器距离。
 
@@ -698,7 +699,7 @@ class Commander:
         """
         assert 1 <= id <= 4, f'invalid IR sensor id {id}'
         resp = self.do('ir_distance_sensor', 'distance', id, '?')
-        return int(resp)
+        return float(resp)
 
     def stream(self, switch: bool) -> str:
         """

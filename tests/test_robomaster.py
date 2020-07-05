@@ -286,8 +286,8 @@ class TestCommander(TestCase):
             m.assert_called_with('ir_distance_sensor', 'measure', 'off')
 
     def test_get_ir_sensor_distance(self):
-        with patch('robomasterpy.Commander._do', return_value='4600') as m:
-            self.assertEqual(4600, self.commander.get_ir_sensor_distance(4))
+        with patch('robomasterpy.Commander._do', return_value='57.3456') as m:
+            self.assertEqual(57.3456, self.commander.get_ir_sensor_distance(4))
             m.assert_called_with('ir_distance_sensor', 'distance', 4, '?')
 
     def test_get_ir_sensor_distance_raise(self):
