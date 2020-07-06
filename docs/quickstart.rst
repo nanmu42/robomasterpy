@@ -52,7 +52,7 @@ Some useful notes:
 
 - Robomaster's IP in USB mode is ``192.168.42.2``, and ``192.168.2.1`` in direct mode;
 - Commander is ready to use once it is created, and exceptions will raise if creation fails;
-- Call Commander's ``close`` method will free its system socket resource, though Commander will NOT send ``quit;`` command to Robomaster since there may be other Commander working;
+- Calling Commander's ``close()`` method will free its system socket resource, though Commander will NOT send ``quit;`` command to Robomaster since there may be other Commander working;
 - It's common to have two or more Commander instances on different processes, connected to the same Robomaster, at the same time;
 - Commander uses mutex to ensure there is only one command from a instance sent to Robomaster at one time;
 - Methods that moves gimbal usually do not response(that's to say, blocks) until the end of gimbal moving, so it may be a good idea to have a loose timeout.
@@ -63,9 +63,9 @@ Framework
 Hub and Workers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-RoboMasterPy framework is built upon Python multiprocessing package. To use the framework, you need to divide your code into parts, by their functionality, like vision, event handling, control.
+RoboMasterPy framework is built upon Python multiprocessing package to avoid GIL and fully utilize multi-core processors.
 
-Every part which inherits ``worker``, runs at the same time. Workers communicates by multiprocessing's Queue.
+When using the framework, you need to divide your code into parts, by their functionality, like vision, event handling, control. Every part which inherits ``Worker``, who holds your business logic, runs at the same time. Workers communicates by multiprocessing's Queue.
 
 Workers are registered under one ``Hub``, who is in charge of orchestration and graceful shutdown.
 
@@ -73,7 +73,13 @@ RoboMasterPy comes with some sugared worker to satisfy common needs, their names
 
 You can always inherit and implement your own worker if sugared ones do not cover your need.
 
-Here is a example showing how Hub and Workers works::
+Here is a example showing how Hub and Workers works. Basically, it shares the look and feel of the top-most level of your codes::
+
+    import click
+    import multiprocessing as mp
+    from robomasterpy import CTX
+    import robomasterpy as rm
+    from robomasterpy import framework as rmf
 
     @click.command()
     @click.option('--ip', default='', type=str, help='(Optional) IP of Robomaster EP')
@@ -141,7 +147,7 @@ The data flow of example above:
 .. image:: ./assets/drive-data-flow.svg
    :alt: RoboMasterPy data flow of drive.py
 
-An one-way, clear flow of data keeps the application simple and maintainable.
+An one-way, clear flow of data keeps the application concise and maintainable.
 
 Helpers
 ----------------------------
