@@ -84,7 +84,8 @@ pip install robomasterpy
 
 ## User Guide
 
-https://robomasterpy.nanmu.me/
+* English: https://robomasterpy.nanmu.me/en/latest/
+* 中文文档（Chinese）：https://robomasterpy.nanmu.me/zh_CN/latest/
 
 Documentation is generously hosted by Read the Docs.
 
@@ -108,4 +109,6 @@ RoboMasterPy was incubated during a RoboMaster EP developing contest. The author
 
 ## License
 
-RoboMasterPy is released under MIT license.
+MIT License
+
+Copyright (c) 2020 [LI Zhennan](https://nanmu.me/en/)
