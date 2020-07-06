@@ -23,24 +23,26 @@ from .client import CTX, LOG_LEVEL, PUSH_PORT, GimbalAttitude, ChassisPosition, 
 
 class Worker:
     """
-    用户逻辑的载体，继承这个类然后将你的逻辑写到work()方法中即可。
+    用户逻辑的载体，继承这个类然后将你的逻辑写到 ``work()`` 方法中即可。
     你的逻辑可以是有状态的或无状态的，如果需要，你可以在继承的新类中使用自定义的任意属性保存你的状态。
-    如果你需要打印日志，使用Worker.logger属性。
-    创建你的新类的实例后使用Hub.worker()注册到Hub实例供其调用。
-    一个Worker子类一般只做一件事情，多个Worker子类各司其职，相互协作，通过multiprocessing.Queue进行单向通讯，
-    最终，负责传感器的Worker的数据会汇聚到负责控制的Worker中，负责控制的Worker再使用Commander向机甲下令。
+    如果你需要打印日志，使用 ``Worker.logger`` 属性。
+    创建你的新类的实例后使用 ``Hub.worker()`` 注册到Hub实例供其调用。
+
+    一个Worker子类一般只做一件事情，多个Worker子类各司其职，相互协作，通过 ``multiprocessing.Queue`` 进行单向通讯，
+    最终，负责传感器的Worker的数据会汇聚到负责控制的Worker中，负责控制的Worker再使用 ``Commander`` 向机甲下令。
 
     RoboMasterPy.framework中提供了多个定制化，开箱即用的Worker以满足
     接收视频流（Vision）、接收事件（EventListener）和推送（PushListener）、汇聚信息控制机甲（Mind）等常见需求，
     请参阅API文档中的“预置Worker”部分。
 
-    Worker takes user's business logic. Inherit this class and write logic code in work() method.
+    Worker takes user's business logic. Inherit this class and write logic code in ``work()`` method.
     A worker can be stateful or stateless, at your choice. You may use some user-defined attributes to store your state if the need arises.
-    Use Worker.logger attribute if some logs need to be printed.
-    Register your well-defined new worker to hub using Hub.worker() so that hub schedule and calls your logic.
+    Use ``Worker.logger`` attribute if some logs need to be printed.
+    Register your well-defined new worker to hub using ``Hub.worker()`` so that hub schedule and calls your logic.
+
     One Worker subclass nearly always does only one business. Multiple Worker subclasses do their own jobs and cooperate,
-    communicate through multiprocessing.Queue in one-way fashion.
-    Data from those subclasses in charge of sensor flows into subclass in charge of controlling, who command your Robomaster by Commander.
+    communicate through ``multiprocessing.Queue`` in one-way fashion.
+    Data from those subclasses in charge of sensor flows into subclass in charge of controlling, who command your Robomaster by ``Commander``.
 
     RoboMasterPy.framework provides many customized and out-of-box Worker to cover common usage like
     receiving video stream(vision), receiving events(EventListener) & pushes(PushListener), gathering info and controlling the Robomaster(Mind), etc.
@@ -117,7 +119,7 @@ class Worker:
         """
         让Worker停止工作，本方法一般由Hub调用。
 
-        Let worker to stop. Nearly always called by Hub.
+        Let worker stop. Nearly always called by Hub.
         """
         with self._mu:
             if self.closed:
@@ -143,15 +145,15 @@ class Worker:
         """
         在本方法中实现你的业务逻辑，你可能需要在这里使用下列方法和属性：
 
-        * 使用self._intake()方法从tcp或udp中获取数据；
-        * 使用self._outlet()方法将产物放到out中，注意，如果out被没有即时消费的产物填满，self._outlet()会丢弃最新的产物；
-        * 使用self.logger属性打印日志。
+        * 使用 ``self._intake()`` 方法从tcp或udp中获取数据；
+        * 使用 ``self._outlet()`` 方法将产物放到out中，注意，如果out被没有即时消费的产物填满，self._outlet()会丢弃最新的产物；
+        * 使用 ``self.logger`` 属性打印日志。
 
         Implement your business logic in this method. These methods and attributes may be useful:
 
-        * use self._intake() method to intake data from tcp or udp connection;
-        * use self._outlet() to put product to ``out``. Keep in mind if ``out`` is filled up with unconsumed product, self._outlet() discards the latest products.
-        * use self.logger for log printing.
+        * use ``self._intake()`` method to intake data from tcp or udp connection;
+        * use ``self._outlet()`` to put product to ``out``. Keep in mind if ``out`` is filled up with unconsumed product, self._outlet() discards the latest products.
+        * use ``self.logger`` for log printing.
         """
         raise NotImplementedError('implement me')
 
@@ -214,15 +216,15 @@ class Hub:
     """
     程序中枢。
 
-    * 使用self.worker()注册你的Worker；
-    * 使用self.run()开始运行；
-    * 使用Ctrl + C停止程序。
+    * 使用 ``self.worker()`` 注册你的Worker；
+    * 使用 ``self.run()`` 开始运行；
+    * 使用 ``Ctrl + C`` 停止程序。
 
     Hub is the orchestrator.
 
-    * Use self.worker() to register your worker;
-    * Use self.run() to run;
-    * Use Ctrl + C for exiting.
+    * Use ``self.worker()`` to register your worker;
+    * Use ``self.run()`` to run;
+    * Use ``Ctrl + C`` for exiting.
     """
 
     TERMINATION_TIMEOUT = 10
@@ -275,7 +277,7 @@ class Hub:
         All workers run in their own operating system process.
 
         :param worker_class: worker的类，注意不是worker实例。
-            class of worker to be registered, note provide the class, not a instance.
+            class of worker to be registered, note provide the class, instead of an instance.
         :param name: worker的名字，选个好名字可以让调试更容易。
             worker's name. A good name makes debugging less painful.
         :param args: 创建worker需要使用的参数。
@@ -297,11 +299,11 @@ class Hub:
     def run(self):
         """
         按注册顺序启动所有worker，阻塞主进程。
-        Hub在接收到SIGTERM或者SIGINT时会尝试安全退出。
+        Hub在接收到 ``SIGTERM`` 或者 ``SIGINT`` 时会尝试安全退出。
 
         Start workers and block the main process.
         Hub tries to shutdown itself gracefully when receiving
-        SIGTERM or SIGINT.
+        ``SIGTERM`` or ``SIGINT``.
         """
         with self._mu:
             self._assert_ready()
@@ -332,10 +334,13 @@ class PushListener(Worker):
 
     def __init__(self, name: str, out: mp.Queue):
         """
+        初始化自身。
 
+        Initialize self.
 
-        :param name:
-        :param out:
+        :param name: worker名称   name of worker
+        :param out: PushListener会将产物放入其中以供下游消费。
+            PushListener puts product into ``out`` for downstream consuming.
         """
         super().__init__(name, out, 'udp', ('', PUSH_PORT), None)
 
@@ -412,11 +417,28 @@ class PushListener(Worker):
 
 
 class EventListener(Worker):
+    """
+    监听并解析机甲大师的事件，输出强类型的推送内容。
+
+    Listen and parse events from Robomaster, product parsed events in strong typed manner.
+    """
+
     EVENT_TYPE_ARMOR: str = 'armor'
     EVENT_TYPE_SOUND: str = 'sound'
     EVENT_TYPES: Tuple[str] = (EVENT_TYPE_ARMOR, EVENT_TYPE_SOUND)
 
     def __init__(self, name: str, out: mp.Queue, ip: str):
+        """
+        初始化自身。
+
+        Initialize self.
+
+        :param name: worker名称   name of worker
+        :param out: PushListener会将产物放入其中以供下游消费。
+            PushListener puts product into ``out`` for downstream consuming.
+        :param ip: 机甲的IP，可从Commander.get_ip()取得。
+            IP of your Robomaster, can be obtained from Commander.get_ip()
+        """
         super().__init__(name, out, 'tcp', (ip, EVENT_PORT), None)
 
     def _parse(self, msg: str) -> List:
@@ -486,9 +508,33 @@ class EventListener(Worker):
 
 
 class Vision(Worker):
+    """
+    拉取并解析机甲的视频流，回调函数会收到解析好的OpenCV视频帧，回调函数的返回值会被放置到 ``out`` 中。
+
+    Pull and parse Robomaster's video stream, call the callback with parsed OpenCV frame,
+    and put return value from callback into ``out``.
+    """
+
     TIMEOUT: float = 5.0
 
     def __init__(self, name: str, out: Optional[mp.Queue], ip: str, processing: Callable[..., None], none_is_valid=False):
+        """
+        初始化自身。
+
+        Initialize self.
+
+        :param name: worker名称   name of worker
+        :param out: PushListener会将产物放入其中以供下游消费。
+            PushListener puts product into ``out`` for downstream consuming.
+        :param ip: 机甲的IP，可从Commander.get_ip()取得。
+            IP of your Robomaster, can be obtained from Commander.get_ip()
+        :param processing: 回调函数，每当有新的视频帧到来时，函数都会被Vision调用，形如 ``processing(frame=frame, logger=self.logger)`` ，
+            其中frame为cv2(OpenCV) frame，logger可用于日志打印。
+            callback function, is called every time when a new frame comes, in form ``processing(frame=frame, logger=self.logger)``,
+            where frame is cv2(OpenCV) frame, and logger is for logging.
+        :param none_is_valid: 是否在回调函数返回None时将None放入 ``out`` ，默认为False.
+            Whether to put None returned from callback function into ``out``, default to False.
+        """
         super().__init__(name, out, None, (ip, VIDEO_PORT), self.TIMEOUT)
         self._none_is_valid = none_is_valid
         self._processing = processing
@@ -514,7 +560,33 @@ class Vision(Worker):
 
 
 class Mind(Worker):
+    """
+    无状态的控制者，适用于简单的控制。
+    对于复杂的，有状态的控制需求，你需要自己继承Worker来实现。
+
+    Stateless controller, suits simple and naive controlling scenario.
+    For complicated, stateful controlling, inherit Worker to implement.
+    """
     def __init__(self, name: str, queues: Tuple[mp.Queue, ...], ip: str, processing: Callable[..., None], timeout: float = 30, loop: bool = True):
+        """
+        初始化自身。
+
+        Initialize self.
+
+        :param name: worker名称   name of worker
+        :param queues: 队列元组，其中队列的内容由上游提供。
+            Tuple of mp.Queue, where their contents are provided by upstream.
+        :param ip: 机甲的IP，可从Commander.get_ip()取得。
+            IP of your Robomaster, can be obtained from Commander.get_ip()
+        :param processing: 回调函数，调用时参数形如 ``processing(cmd=self._cmd, queues=self._queues, logger=self.logger)`` ，
+            其中cmd为连接到机甲的Commander，queues为输入的队列元组，logger用于日志打印。
+            callback function, is called in form ``processing(cmd=self._cmd, queues=self._queues, logger=self.logger)``,
+            where cmd is a connected Commander, queue is the input tuple of mp.Queue, logger is for logging.
+        :param timeout: Commander的连接超时。
+            timeout for Commander.
+        :param loop: 是否循环调用回调函数processing
+            whether calls processing(callback) function in loop, default to True.
+        """
         super().__init__(name, None, None, (ip, 0), timeout, loop=loop)
         self._queues = queues
         self._processing = processing

@@ -62,7 +62,7 @@ Workers can be stateful or stateless, per your need.
    :inherited-members:
    :undoc-members:
 
-Sugared Worker
+Sugared Workers
 ^^^^^^^^^^^^^^^^
 
 RoboMasterPy comes with some sugared worker to satisfy common needs, their names are self-explanatory.

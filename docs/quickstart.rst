@@ -141,13 +141,15 @@ The data flow of example above:
 .. image:: ./assets/drive-data-flow.svg
    :alt: RoboMasterPy data flow of drive.py
 
+An one-way, clear flow of data keeps the application simple and maintainable.
+
 Helpers
 ----------------------------
 
 Helpers are some good-to-have features that may be useful for your task.
 Refer to :ref:`API documentation <api>` for details.
 
-Learn by Examples
+RoboMasterPy by Example
 ------------------------------------------
 
 Here are some runnable examples which you may use as start point.
