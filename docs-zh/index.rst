@@ -1,7 +1,7 @@
 RoboMasterPy: 大疆机甲大师的Python SDK和编程框架
 =====================================================================
 
-Release v\ |release|. (:ref:`Installation <install>`)
+版本 v\ |release|. (:ref:`Installation <install>`)
 
 .. image:: https://img.shields.io/pypi/l/robomasterpy.svg
     :target: https://pypi.org/project/robomasterpy/
