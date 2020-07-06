@@ -35,7 +35,7 @@ def pinhole_distance(actual_size: float, pixel_size: float, focal_length: float 
 
     :param actual_size: 实际大小，单位米。 Actual object size in meters.
     :param pixel_size: 像素大小，单位像素。 Object size in pixels.
-    :param focal_length: （可选）当前分辨率下的等效焦距，和分辨率相关。默认使用1280*720分辨率。Perceived focal length at specified image resolution, default to 1280*720.
+    :param focal_length: （可选）当前分辨率下的等效焦距，和分辨率相关。默认使用1280*720分辨率下的数值。Perceived focal length at specified image resolution, default to value under 1280*720.
     :return: 物体到相机的距离，单位米。 Distance between camera and object, in meters.
     """
     return focal_length * actual_size / pixel_size
@@ -54,7 +54,7 @@ def distance_decomposition(pixel_x: float, distance: float, horizontal_pixels: f
     :param horizontal_degrees: 图像横向的视角大小，默认96. The horizontal viewing angle of the image, the default is 96.
     :return: 前进分量和侧向分量，单位米；水平偏转角度，单位度。 forward vector and lateral vector in meters; horizontal angle in degrees.
     """
-    horizontal_degree = HORIZONTAL_DEGREES * (pixel_x / horizontal_pixels - 0.5)
+    horizontal_degree = horizontal_degrees * (pixel_x / horizontal_pixels - 0.5)
     rad = horizontal_degree / 180 * math.pi
     lateral = distance * math.sin(rad)
     forward = distance * math.cos(rad)
