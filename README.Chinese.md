@@ -2,13 +2,17 @@
 
 [English](https://github.com/nanmu42/robomasterpy/blob/master/README.md) | **中文**
 
+[![文档编译状态](https://readthedocs.org/projects/robomasterpy/badge/?version=latest)](https://robomasterpy.nanmu.me/zh_CN/latest/)
 [![](https://img.shields.io/pypi/l/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 [![](https://img.shields.io/pypi/wheel/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 [![](https://img.shields.io/pypi/pyversions/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 
-**RoboMasterPy** 是一个适用于机甲大师EP的SDK和编程框架。
+**RoboMasterPy** 是大疆机甲大师的Python SDK和编程框架：
 
-下面是运用RoboMasterPy SDK的一个简单示例：
+* Python SDK：遥测和控制机甲大师；
+* 编程框架：提供和规范控制流和数据流，解决视频流拉取解析、事件和推送拉取解析等常见需求，解耦控制循环、日志打印、安全退出等模板代码，降低心智负担和劳动强度，让开发者可以专注于业务逻辑的实现。
+
+SDK（客户端）的使用方式比较直观：
 
 ```python
 >>> import robomasterpy as rm
@@ -42,16 +46,13 @@
 'ok'
 ```
 
-![RoboMasterPy 守门员](https://user-images.githubusercontent.com/8143068/82755582-186d5700-9e07-11ea-9c08-1ff1d82e7a7e.jpg)
-
-RoboMasterPy编程框架抽象了视频流、推送和事件的获取，模块之间的信息通讯，
-提供了一个高层的逻辑组织方式，期望降低开发者的心智负担，提升开发效率。
-
-## 应用案例
+框架让你能够更容易地创建复杂应用，例如：
 
 * [使用键盘控制你的机甲大师EP](https://github.com/nanmu42/robo-playground/blob/master/README.Chinese.md#%E4%BD%BF%E7%94%A8%E9%94%AE%E7%9B%98%E6%8E%A7%E5%88%B6%E4%BD%A0%E7%9A%84%E6%9C%BA%E7%94%B2%E5%A4%A7%E5%B8%88ep)；
 * [让你的机甲大师变身为守门员](https://github.com/nanmu42/robo-playground/blob/master/README.Chinese.md#%E8%AE%A9%E4%BD%A0%E7%9A%84%E6%9C%BA%E7%94%B2%E5%A4%A7%E5%B8%88ep%E5%8F%98%E8%BA%AB%E4%B8%BA%E5%AE%88%E9%97%A8%E5%91%98)。
 * [更多示例](https://github.com/nanmu42/robo-playground)
+
+![RoboMasterPy 守门员](https://user-images.githubusercontent.com/8143068/82755582-186d5700-9e07-11ea-9c08-1ff1d82e7a7e.jpg)
 
 ## 安装
 
@@ -83,9 +84,9 @@ pip install robomasterpy
 
 ## 用户指南
 
-文档提供中英双语。
+https://robomasterpy.nanmu.me/zh_CN/latest/
 
-https://robomasterpy.nanmu.me/
+文档提供中英双语。
 
 Read the Docs 慷慨地提供了文档托管服务。
 

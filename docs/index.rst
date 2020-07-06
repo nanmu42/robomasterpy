@@ -12,7 +12,7 @@ Release v\ |release|. (:ref:`Installation <install>`)
 .. image:: https://img.shields.io/pypi/pyversions/robomasterpy.svg
     :target: https://pypi.org/project/robomasterpy/
 
-**RoboMasterPy** is a RoboMaster Python SDK and framework.
+**RoboMasterPy** is a RoboMaster Python SDK and framework:
 
 * Python SDK: inspect and control your Robomaster, remotely;
 * framework: development framework providing and regularising control flow and data flow, resolving common needs like pulling and parsing on video stream, events and pushes, decoupling boilerplate codes like controlling loop, logging, graceful shutdown. You may rely on the framework, implement your business logic with ease of mind and less manual labor.
