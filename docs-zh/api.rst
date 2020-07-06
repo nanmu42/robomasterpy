@@ -1,73 +1,58 @@
 .. _api:
 
-API
+API文档
 ============
 
-If you are new here, you may want to read :ref:`Quick Start <quickstart>` firstly.
+如果你刚刚才接触 RoboMasterPy，建议你从 :ref:`新手教程 <quickstart>` 开始。
 
-The API documentation here are in Chinese-English contraposition style.
+这里的 API 文档以中英对照的方式提供。
 
-Receive IP Broadcast
-------------------------------
+接收 IP 广播
+----------------------------------------------------
 
-Robomaster broadcasts its IP address under router mode.
+在路由器模式下，机甲大师会广播其IP地址。
 
 .. autofunction:: robomasterpy.get_broadcast_ip
 
-Commander
-------------------
+Commander：遥测和控制
+--------------------------------------------------------
 
-Commander is a SDK(client) for Robomaster TCP text API.
+Commander 是机甲大师TCP文本API的客户端。
 
 .. autoclass:: robomasterpy.Commander
    :members:
    :inherited-members:
    :undoc-members:
 
-Framework
---------------------
+编程框架
+--------------------------------------------
 
-For a comprehensive introduction on framework, read :ref:`Quick Start <quickstart>`.
+在 :ref:`新手教程 <quickstart>` 中有对编程框架的简要介绍和示例。
 
-The framework deals with video streaming, push and event,
-you can build your controlling logic basing on it, for example:
+Hub：聚合你的业务逻辑
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* `Drive your robomaster using keyboard <https://github.com/nanmu42/robo-playground#drive-your-robomaster-using-keyboard>`_;
-* `Make your robomaster a goalkeeper <https://github.com/nanmu42/robo-playground#make-your-robomaster-a-goalkeeper>`_.
-
-Hub
-^^^^^^^^^^^^
-
-Hub is where workers live, its API is declarative rather than imperative.
-
-Use ``work()`` to register worker.
-
-Use ``run()`` to start all the workers. ``run()`` blocks until ``SIGTERM`` or ``SIGINT``.
+Hub是注册Worker的地方，它的API更偏向于声明式而非命令式。
 
 .. autoclass:: robomasterpy.framework.Hub
    :members:
    :inherited-members:
    :undoc-members:
 
-Worker
-^^^^^^^^^^^^^^^^
-
-Workers are where your bossiness logic lives.
-Create your own class inheriting Worker, implement its ``work()`` method with your logic.
-
-Workers can be stateful or stateless, per your need.
+Worker：承载你的业务逻辑
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. autoclass:: robomasterpy.framework.Worker
    :members:
    :inherited-members:
    :undoc-members:
 
-Sugared Workers
-^^^^^^^^^^^^^^^^
+预置Worker：满足常见需求
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-RoboMasterPy comes with some sugared worker to satisfy common needs, their names are self-explanatory.
+RoboMasterPy 预置了一些 Worker 以应对常见需求。
 
-You can always inherit and implement your own worker if sugared ones do not cover your need.
+当预置的 Worker 不能满足你的需求时，你可以继承 ``Worker`` 创建自己的子类来完成你的任务。
 
 .. autoclass:: robomasterpy.framework.Vision
    :members:
@@ -81,15 +66,15 @@ You can always inherit and implement your own worker if sugared ones do not cove
 .. autoclass:: robomasterpy.framework.Mind
    :members:
 
-Helpers
+帮手函数/常量
 ---------------------------------------
 
-Helpers are some good-to-have features that may be useful for your task.
+帮手函数/常量是一些可能可以帮助你完成特定任务的工具。
 
-Distance Measure
+距离的度量和分析
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Some helpers for distance measure and analysis on video stream.
+以视频流为依据度量和分析物体到机甲的距离。
 
 .. autofunction:: robomasterpy.measure.pinhole_distance
 .. autofunction:: robomasterpy.measure.distance_decomposition
