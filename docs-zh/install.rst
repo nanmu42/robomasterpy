@@ -1,31 +1,31 @@
 .. _install:
 
-Installation
+安装
 ====================================
 
-RoboMasterPy requires Python 3.6 and above.
+RoboMasterPy 须要 Python 3.6 或以上。
 
-Install Dependencies First
+先安装依赖
 ---------------------------------------
 
-If you are using Python 3.6.x, you need to install ``dataclasses``, which is already included in Python 3.7 and better::
+如果你正使用Python 3.6.x，你需要额外安装 ``dataclasses`` （已预置在Python 3.7及以上版本）：
 
     pip install dataclasses
 
-Install OpenCV of your flavor, suggestion::
+安装你熟悉的OpenCV发行版，推荐::
 
-    # if you are using conda
+    # 如果你偏爱conda环境
     conda install -c conda-forge opencv
 
-    # if you are using pip only
+    # 如果你只使用pip
     pip install opencv-contrib-python
 
-Install RoboMasterPy
+安装 RoboMasterPy
 -----------------------------------------
 
 ::
 
     pip install robomasterpy
 
-And you are good to go!
+大功告成！
 

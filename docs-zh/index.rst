@@ -1,7 +1,7 @@
 RoboMasterPy: 大疆机甲大师的Python SDK和编程框架
 =====================================================================
 
-Release v\ |release|. (:ref:`Installation <install>`)
+版本 v\ |release|. (:ref:`Installation <install>`)
 
 .. image:: https://img.shields.io/pypi/l/robomasterpy.svg
     :target: https://pypi.org/project/robomasterpy/
@@ -12,7 +12,7 @@ Release v\ |release|. (:ref:`Installation <install>`)
 .. image:: https://img.shields.io/pypi/pyversions/robomasterpy.svg
     :target: https://pypi.org/project/robomasterpy/
 
-**RoboMasterPy** 是大疆机甲大师的Python SDK和编程框架。
+**RoboMasterPy** 是大疆机甲大师的Python SDK和编程框架：
 
 * Python SDK：遥测和控制机甲大师；
 * 编程框架：提供和规范控制流和数据流，解决视频流拉取解析、事件和推送拉取解析等常见需求，解耦控制循环、日志打印、安全退出等模板代码，降低心智负担和劳动强度，让开发者可以专注于业务逻辑的实现。

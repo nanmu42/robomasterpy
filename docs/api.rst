@@ -3,7 +3,7 @@
 API
 ============
 
-If you are new here, you may want to read :ref:`Quick Start <quickstart>` firstly.
+If you are new to RoboMasterPy, you may want to read :ref:`Quick Start <quickstart>` firstly.
 
 The API documentation here are in Chinese-English contraposition style.
 
@@ -27,22 +27,12 @@ Commander is a SDK(client) for Robomaster TCP text API.
 Framework
 --------------------
 
-For a comprehensive introduction on framework, read :ref:`Quick Start <quickstart>`.
-
-The framework deals with video streaming, push and event,
-you can build your controlling logic basing on it, for example:
-
-* `Drive your robomaster using keyboard <https://github.com/nanmu42/robo-playground#drive-your-robomaster-using-keyboard>`_;
-* `Make your robomaster a goalkeeper <https://github.com/nanmu42/robo-playground#make-your-robomaster-a-goalkeeper>`_.
+For a brief introduction on framework, read :ref:`Quick Start <quickstart>`.
 
 Hub
 ^^^^^^^^^^^^
 
 Hub is where workers live, its API is declarative rather than imperative.
-
-Use ``work()`` to register worker.
-
-Use ``run()`` to start all the workers. ``run()`` blocks until ``SIGTERM`` or ``SIGINT``.
 
 .. autoclass:: robomasterpy.framework.Hub
    :members:
@@ -51,11 +41,6 @@ Use ``run()`` to start all the workers. ``run()`` blocks until ``SIGTERM`` or ``
 
 Worker
 ^^^^^^^^^^^^^^^^
-
-Workers are where your bossiness logic lives.
-Create your own class inheriting Worker, implement its ``work()`` method with your logic.
-
-Workers can be stateful or stateless, per your need.
 
 .. autoclass:: robomasterpy.framework.Worker
    :members:

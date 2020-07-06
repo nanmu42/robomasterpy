@@ -2,12 +2,15 @@
 
 **English** | [中文](https://github.com/nanmu42/robomasterpy/blob/master/README.Chinese.md)
 
-[![Documentation Status](https://readthedocs.org/projects/robomasterpy/badge/?version=latest)](https://robomasterpy.nanmu.me/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/robomasterpy/badge/?version=latest)](https://robomasterpy.nanmu.me/en/latest/)
 [![](https://img.shields.io/pypi/l/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 [![](https://img.shields.io/pypi/wheel/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 [![](https://img.shields.io/pypi/pyversions/robomasterpy.svg)](https://pypi.org/project/robomasterpy/)
 
-**RoboMasterPy** is a Python SDK and framework for RoboMaster EP.
+**RoboMasterPy** is a RoboMaster Python SDK and framework:
+
+* Python SDK: inspect and control your Robomaster, remotely;
+* framework: development framework providing and regularising control flow and data flow, resolving common needs like pulling and parsing on video stream, events and pushes, decoupling boilerplate codes like controlling loop, logging, graceful shutdown. You may rely on the framework, implement your business logic with ease of mind and less manual labor.
 
 The SDK(client) is straightforward to use:
 
@@ -43,17 +46,13 @@ The SDK(client) is straightforward to use:
 'ok'
 ```
 
-![RoboMasterPy Goalkeeper](https://user-images.githubusercontent.com/8143068/82755582-186d5700-9e07-11ea-9c08-1ff1d82e7a7e.jpg)
-
-The framework deals with video streaming, push and event,
-provides a high-level interface for controlling and communication.
-You can build your controlling logic basing on it.
-
-## Fun Examples
+The framework lets you create complicated application easier, e.g.:
 
 * [Drive your robomaster using keyboard](https://github.com/nanmu42/robo-playground#drive-your-robomaster-using-keyboard);
 * [Make your robomaster a goalkeeper](https://github.com/nanmu42/robo-playground#make-your-robomaster-a-goalkeeper);
 * [More examples](https://github.com/nanmu42/robo-playground)
+
+![RoboMasterPy Goalkeeper](https://user-images.githubusercontent.com/8143068/82755582-186d5700-9e07-11ea-9c08-1ff1d82e7a7e.jpg)
 
 ## Installation
 
@@ -85,7 +84,8 @@ pip install robomasterpy
 
 ## User Guide
 
-https://robomasterpy.nanmu.me/
+* English: https://robomasterpy.nanmu.me/en/latest/
+* 中文文档（Chinese）：https://robomasterpy.nanmu.me/zh_CN/latest/
 
 Documentation is generously hosted by Read the Docs.
 
@@ -109,4 +109,6 @@ RoboMasterPy was incubated during a RoboMaster EP developing contest. The author
 
 ## License
 
-RoboMasterPy is released under MIT license.
+MIT License
+
+Copyright (c) 2020 [LI Zhennan](https://nanmu.me/en/)
