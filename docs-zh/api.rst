@@ -55,16 +55,16 @@ RoboMasterPy 预置了一些 Worker 以应对常见需求。
 当预置的 Worker 不能满足你的需求时，你可以继承 ``Worker`` 创建自己的子类来完成你的任务。
 
 .. autoclass:: robomasterpy.framework.Vision
-   :members:
+   :members: __init__
 
 .. autoclass:: robomasterpy.framework.PushListener
-   :members:
+   :members: __init__
 
 .. autoclass:: robomasterpy.framework.EventListener
-   :members:
+   :members: __init__
 
 .. autoclass:: robomasterpy.framework.Mind
-   :members:
+   :members: __init__
 
 帮手函数/常量
 ---------------------------------------

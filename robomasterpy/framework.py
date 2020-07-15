@@ -26,7 +26,7 @@ class Worker:
     用户逻辑的载体，继承这个类然后将你的逻辑写到 ``work()`` 方法中即可。
     你的逻辑可以是有状态的或无状态的，如果需要，你可以在继承的新类中使用自定义的任意属性保存你的状态。
     如果你需要打印日志，使用 ``Worker.logger`` 属性。
-    创建你的新类的实例后使用 ``Hub.worker()`` 注册到Hub实例供其调用。
+    使用 ``Hub.worker()`` 将Worker及其参数注册到Hub实例供其调用。
 
     一个Worker子类一般只做一件事情，多个Worker子类各司其职，相互协作，通过 ``multiprocessing.Queue`` 进行单向通讯，
     最终，负责传感器的Worker的数据会汇聚到负责控制的Worker中，负责控制的Worker再使用 ``Commander`` 向机甲下令。
@@ -38,7 +38,7 @@ class Worker:
     Worker takes user's business logic. Inherit this class and write logic code in ``work()`` method.
     A worker can be stateful or stateless, at your choice. You may use some user-defined attributes to store your state if the need arises.
     Use ``Worker.logger`` attribute if some logs need to be printed.
-    Register your well-defined new worker to hub using ``Hub.worker()`` so that hub schedule and calls your logic.
+    Register your user-defined worker class along with its params to hub using ``Hub.worker()`` so that hub schedule and calls your logic.
 
     One Worker subclass nearly always does only one business. Multiple Worker subclasses do their own jobs and cooperate,
     communicate through ``multiprocessing.Queue`` in one-way fashion.
@@ -149,11 +149,15 @@ class Worker:
         * 使用 ``self._outlet()`` 方法将产物放到out中，注意，如果out被没有即时消费的产物填满，self._outlet()会丢弃最新的产物；
         * 使用 ``self.logger`` 属性打印日志。
 
+        预置worker不需要自己实现本方法。
+
         Implement your business logic in this method. These methods and attributes may be useful:
 
         * use ``self._intake()`` method to intake data from tcp or udp connection;
         * use ``self._outlet()`` to put product to ``out``. Keep in mind if ``out`` is filled up with unconsumed product, self._outlet() discards the latest products.
         * use ``self.logger`` for log printing.
+
+        There's no need to implement this method in Sugared Workers.
         """
         raise NotImplementedError('implement me')
 

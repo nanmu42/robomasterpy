@@ -55,16 +55,16 @@ RoboMasterPy comes with some sugared worker to satisfy common needs, their names
 You can always inherit and implement your own worker if sugared ones do not cover your need.
 
 .. autoclass:: robomasterpy.framework.Vision
-   :members:
+   :members: __init__
 
 .. autoclass:: robomasterpy.framework.PushListener
-   :members:
+   :members: __init__
 
 .. autoclass:: robomasterpy.framework.EventListener
-   :members:
+   :members: __init__
 
 .. autoclass:: robomasterpy.framework.Mind
-   :members:
+   :members: __init__
 
 Helpers
 ---------------------------------------
