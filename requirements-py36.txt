@@ -14,7 +14,7 @@ jeepney==0.4.3
 Jinja2==2.11.3
 keyring==21.2.1
 MarkupSafe==1.1.1
-numpy==1.18.4
+numpy==1.22.0
 opencv-contrib-python==4.2.0.34
 packaging==20.4
 pkginfo==1.5.0.1
