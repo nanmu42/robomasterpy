@@ -11,6 +11,7 @@ import logging
 import multiprocessing as mp
 import queue
 import signal
+import platform
 import socket
 import sys
 import time
@@ -240,6 +241,7 @@ class Hub:
         Hub does not need parameters to initialize.
         """
         self._mu = CTX.Lock()
+        self._block = True
         with self._mu:
             self._closed: bool = False
             self._workers: List = []
@@ -300,6 +302,12 @@ class Hub:
         worker = worker_class(*args[1:], **kwargs)
         worker()
 
+    def signal_handler(self, sig, frame):
+        """
+        Handler for signals on windows
+        """
+        self._block = False
+
     def run(self):
         """
         按注册顺序启动所有worker，阻塞主进程。
@@ -315,7 +323,17 @@ class Hub:
         for worker in self._workers:
             worker.start()
 
-        signal.sigwait((signal.SIGINT, signal.SIGTERM))
+        if platform.system() == "Windows":
+            # Register Handlers
+            signal.signal(signal.SIGINT, self.signal_handler)
+            signal.signal(signal.SIGTERM, self.signal_handler)
+            # Block until signal is received
+            while self._block:
+                time.sleep(1)
+        else:
+            # This only works on UNIX based Systems
+            signal.sigwait((signal.SIGINT, signal.SIGTERM))
+
         self.close()
         for worker in self._workers:
             try:
