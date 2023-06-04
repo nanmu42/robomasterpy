@@ -4,7 +4,7 @@ bleach==3.3.0
 certifi==2022.12.7
 cffi==1.14.0
 chardet==3.0.4
-cryptography==3.3.2
+cryptography==39.0.1
 dataclasses==0.7
 docutils==0.16
 idna==2.9
