@@ -21,7 +21,7 @@ NAME = 'robomasterpy'
 # Load the package's __version__.py module as a dictionary.
 about = {}
 project_slug = NAME.lower().replace("-", "_").replace(" ", "_")
-with open(os.path.join(here, project_slug, '__version__.py')) as f:
+with open(os.path.join(here, project_slug, '__version__.py'), encoding="utf-8") as f:
     exec(f.read(), about)
 
 DESCRIPTION = about['__description__']
